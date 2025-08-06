@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Igreja IEPC</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Igreja IEPC - Site Oficial</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,26 +29,90 @@
       font-weight: bold;
     }
     main {
-      padding: 20px;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: darkred;
+    }
+    blockquote {
+      font-style: italic;
+      color: darkgreen;
+      border-left: 5px solid darkred;
+      padding-left: 15px;
+      margin: 20px 0;
+    }
+    .video-destaque {
+      margin-top: 30px;
       text-align: center;
+    }
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border: none;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Igreja Evangélica Pentecostal Cristã (IEPC)</h1>
-    <p>Fazenda Rio Grande</p>
+    <h1>Bem-vindo ao Site Oficial da IEPC</h1>
+    <p>Igreja Evangélica Pentecostal Cristã</p>
   </header>
 
   <nav>
-    <a href="index.html">Início</a>
-    <a href="videos.html">Vídeos</a>
-    <a href="contato.html">Contato</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#cultos">Cultos</a>
+    <a href="#versiculo">Versículo</a>
+    <a href="#videos">Vídeos</a>
   </nav>
 
   <main>
-    <h2>Bem-vindo ao site oficial da IEPC!</h2>
-    <p>Conheça nossa história, horários dos cultos, eventos e muito mais.</p>
+
+    <section id="sobre">
+      <h2>Sobre a Igreja</h2>
+      <p>A IEPC foi fundada com o propósito de levar a Palavra de Deus com amor e dedicação.</p>
+      <p>📍 Local: Rua Curitiba, 2209 – final da Rua Curitiba, Fazenda Rio Grande – PR</p>
+      <p>👤 Pastor responsável: Pr. Airton</p>
+    </section>
+
+    <section id="cultos">
+      <h2>Horários dos Cultos</h2>
+      <ul>
+        <li>🕒 Domingo às 15h – Culto Normal</li>
+        <li>🍞 Santa Ceia: Segundo domingo do mês às 9h</li>
+        <li>🔥 Conectados com Deus – Evento de Jovens aos sábados</li>
+      </ul>
+    </section>
+
+    <section id="versiculo">
+      <h2>Versículo do Dia</h2>
+      <blockquote>
+        "Lâmpada para os meus pés é a tua palavra e, luz para os meus caminhos."  
+        – Salmos 119:105
+      </blockquote>
+    </section>
+
+    <section id="videos">
+      <h2>Canal da Igreja no YouTube</h2>
+      <p>Inscreva-se no nosso canal oficial:  
+        <a href="https://youtube.com/@iepcfazenda2670" target="_blank">
+          @iepcfazenda2670
+        </a>
+      </p>
+
+      <div class="video-destaque">
+        <h3>Vídeo em destaque</h3>
+        <iframe src="https://www.youtube.com/embed/-Hvw8ZA-eXs" allowfullscreen></iframe>
+      </div>
+    </section>
+
   </main>
 </body>
-</html>
+  </html>
