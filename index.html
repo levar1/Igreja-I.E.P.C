@@ -2,117 +2,205 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Igreja IEPC - Site Oficial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I.E.P.C - Igreja Evangélica Pentecostal Cristã</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #fffbe9;
+      background-color: #fdfcf7;
       margin: 0;
       padding: 0;
+      color: #333;
     }
+
     header {
       background: linear-gradient(45deg, gold, darkred);
       color: white;
-      padding: 20px;
+      padding: 1.5rem;
       text-align: center;
     }
+
     nav {
-      background: #f5deb3;
-      padding: 10px;
-      text-align: center;
+      background-color: darkred;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      flex-wrap: wrap;
     }
+
     nav a {
-      margin: 0 15px;
+      color: white;
       text-decoration: none;
-      color: darkred;
       font-weight: bold;
     }
-    main {
-      padding: 30px;
-      max-width: 800px;
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      padding: 2rem;
+      max-width: 900px;
       margin: auto;
-      line-height: 1.6;
     }
-    section {
-      margin-bottom: 40px;
+
+    .destaque {
+      background-color: #fff3cd;
+      border-left: 5px solid gold;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      font-style: italic;
     }
+
     h2 {
       color: darkred;
+      margin-bottom: 1rem;
     }
-    blockquote {
-      font-style: italic;
-      color: darkgreen;
-      border-left: 5px solid darkred;
-      padding-left: 15px;
-      margin: 20px 0;
-    }
-    .video-destaque {
-      margin-top: 30px;
+
+    footer {
+      background-color: darkred;
+      color: white;
       text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
     }
-    iframe {
-      width: 100%;
-      max-width: 560px;
-      height: 315px;
+
+    button {
+      background-color: darkred;
+      color: white;
       border: none;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #a30000;
+    }
+
+    #areaSecreta {
+      display: none;
+      border: 2px solid darkred;
+      padding: 1rem;
+      margin-top: 1rem;
+      background-color: #fff8e1;
+    }
+
+    .contato p, .agenda p, .ministerios p {
+      margin: 0.5rem 0;
+    }
+
+    a.email-link {
+      color: darkred;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a.email-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Bem-vindo ao Site Oficial da IEPC</h1>
-    <p>Igreja Evangélica Pentecostal Cristã</p>
+    <h1>Igreja Evangélica Pentecostal Cristã (I.E.P.C)</h1>
+    <p>Seja bem-vindo! Desenvolvido por <strong>RAVEL</strong>, 6º ano TD</p>
   </header>
 
   <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#cultos">Cultos</a>
-    <a href="#versiculo">Versículo</a>
-    <a href="#videos">Vídeos</a>
+    <a href="#inicio">Início</a>
+    <a href="#contato">Contato</a>
+    <a href="#historia">História</a>
+    <a href="#ministerios">Ministérios</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#areasecreta">Área Secreta</a>
   </nav>
 
-  <main>
+  <section class="section" id="inicio">
+    <div class="destaque">
+      <strong>Versículo do dia:</strong> "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna." - João 3:16
+    </div>
+    <p>A I.E.P.C é liderada pelo pastor Airton e está localizada na Rua Curitiba, 2209 – final da rua, em <strong>Fazenda Rio Grande</strong>. Temos cultos aos domingos às 15h e Santa Ceia no segundo domingo de cada mês, às <strong>10h da manhã</strong>. Também realizamos encontros de jovens aos sábados.</p>
+    <p>Confira nosso canal no YouTube para acompanhar transmissões e novidades:</p>
+    <p><a href="https://youtube.com/@igrejai.e.p.cfazendariogrande?si=TsZu3VJZq_peyzh-" target="_blank" rel="noopener noreferrer" style="color: darkred; font-weight: bold;">Canal I.E.P.C Fazenda Rio Grande</a></p>
+  </section>
 
-    <section id="sobre">
-      <h2>Sobre a Igreja</h2>
-      <p>A IEPC foi fundada com o propósito de levar a Palavra de Deus com amor e dedicação.</p>
-      <p>📍 Local: Rua Curitiba, 2209 – final da Rua Curitiba, Fazenda Rio Grande – PR</p>
-      <p>👤 Pastor responsável: Pr. Airton</p>
-    </section>
+  <section class="section" id="contato">
+    <h2>Contato</h2>
+    <p><strong>Endereço:</strong> Rua Curitiba, 2209 – Final da rua, Fazenda Rio Grande</p>
+    <p><strong>Pastor responsável:</strong> Airton</p>
+    <p><strong>Cultos:</strong> Domingo às 15h</p>
+    <p><strong>Santa Ceia:</strong> 2º domingo do mês às 10h da manhã</p>
+    <p><strong>Pedidos de oração por e-mail:</strong> <a class="email-link" href="mailto:igreja.e.p.cfazendariogrande@gmail.com">igreja.e.p.cfazendariogrande@gmail.com</a></p>
+  </section>
 
-    <section id="cultos">
-      <h2>Horários dos Cultos</h2>
+  <section class="section" id="historia">
+    <h2>História da Igreja</h2>
+    <p>Um dia, o pastor e a família dele foram passear em Fazenda Rio Grande. Primeiro, estavam tendo uma festa de confraternização, e o pastor não estava se sentindo bem lá, porque tinha muita bebedeira e álcool. Foi aí que ele teve a vontade de ir embora.</p>
+    <p>Quando ele foi falar com o seu pai para se despedir, o pastor sentiu que o Espírito Santo estava dizendo que era hora de fazer uma oração. Então ele fez uma oração antes de ir embora.</p>
+    <p>Assim que terminou a oração, o pai do pastor falou que também queria fazer outra oração. E ali nasceu a vontade de fazer uma célula naquele lugar.</p>
+    <p>Uma vez por mês, levavam uma célula lá. Um dia, quem levava a célula organizou uma vigília. Nessa vigília, foi levada uma irmã que congregava em Fazenda Rio Grande, no centro da cidade.</p>
+    <p>Essa irmã foi direcionada pelo Espírito Santo e profetizou a compra de um terreno para a igreja. Daí pra frente, com muita oração e trabalho, a igreja chegou aonde está hoje!</p>
+  </section>
+
+  <section class="section" id="ministerios">
+    <h2>Ministérios Ativos</h2>
+    <p>Atualmente, a I.E.P.C possui os seguintes ministérios ativos:</p>
+    <ul>
+      <li><strong>Louvor</strong> – Responsável: Lucas</li>
+      <li><strong>Jovens</strong> – Responsáveis: Lucas e Cleiceane</li>
+    </ul>
+    <p>Os ministérios de ação social, evangelismo, casais e intercessão ainda acontecem concentrados em um único dia e serão organizados futuramente em dias separados.</p>
+  </section>
+
+  <section class="section" id="agenda">
+    <h2>Agenda de Eventos</h2>
+    <p><strong>Culto Normal:</strong> Todos os domingos às 15h</p>
+    <p><strong>Santa Ceia:</strong> Segundo domingo do mês às 10h da manhã</p>
+    <p><strong>Batismo:</strong> Logo após a Santa Ceia</p>
+    <p><strong>Eventos especiais aos sábados:</strong></p>
+    <ul>
+      <li>09/08 – Encontro de Casais</li>
+      <li>16/08 – Célula</li>
+      <li>23/08 – Encontro de Jovens</li>
+      <li>30/08 – Acampadentro das Meninas</li>
+    </ul>
+  </section>
+
+  <section class="section" id="areasecreta">
+    <h2>Área Secreta - Apenas para Integrantes</h2>
+    <button onclick="acessarAreaSecreta()">Entrar na Área Exclusiva</button>
+
+    <div id="areaSecreta">
+      <h3>Conteúdos Exclusivos</h3>
       <ul>
-        <li>🕒 Domingo às 15h – Culto Normal</li>
-        <li>🍞 Santa Ceia: Segundo domingo do mês às 9h</li>
-        <li>🔥 Conectados com Deus – Evento de Jovens aos sábados</li>
+        <li>Recados e avisos internos para os membros</li>
+        <li>Escalas de trabalho (louvor, recepção, limpeza, etc.)</li>
+        <li>Material para estudos e discipulados (apostilas, vídeos, links)</li>
+        <li>Agenda detalhada de reuniões, ensaios e eventos internos</li>
+        <li>Lista de orações e pedidos reservados</li>
+        <li>Arquivos e documentos importantes da igreja</li>
+        <li>Fotos e vídeos exclusivos dos encontros e eventos internos</li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <section id="versiculo">
-      <h2>Versículo do Dia</h2>
-      <blockquote>
-        "Lâmpada para os meus pés é a tua palavra e, luz para os meus caminhos."  
-        – Salmos 119:105
-      </blockquote>
-    </section>
+  <footer>
+    &copy; 2025 I.E.P.C - Desenvolvido por RAVEL, 6º ano TD
+  </footer>
 
-    <section id="videos">
-      <h2>Canal da Igreja no YouTube</h2>
-      <p>Inscreva-se no nosso canal oficial:  
-        <a href="https://youtube.com/@iepcfazenda2670" target="_blank">
-          @iepcfazenda2670
-        </a>
-      </p>
-
-      <div class="video-destaque">
-        <h3>Vídeo em destaque</h3>
-        <iframe src="https://www.youtube.com/embed/-Hvw8ZA-eXs" allowfullscreen></iframe>
-      </div>
-    </section>
-
-  </main>
+  <script>
+    function acessarAreaSecreta() {
+      const senha = prompt("Digite a senha para acessar a área exclusiva:");
+      if (senha === "36737829") {
+        document.getElementById("areaSecreta").style.display = "block";
+      } else {
+        alert("Senha incorreta! Acesso negado.");
+      }
+    }
+  </script>
 </body>
   </html>
