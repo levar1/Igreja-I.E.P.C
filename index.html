@@ -173,19 +173,6 @@
   <section class="section" id="areasecreta">
     <h2>Área Secreta - Apenas para Integrantes</h2>
     <button onclick="acessarAreaSecreta()">Entrar na Área Exclusiva</button>
-
-    <div id="areaSecreta">
-      <h3>Conteúdos Exclusivos</h3>
-      <ul>
-        <li>Recados e avisos internos para os membros</li>
-        <li>Escalas de trabalho (louvor, recepção, limpeza, etc.)</li>
-        <li>Material para estudos e discipulados (apostilas, vídeos, links)</li>
-        <li>Agenda detalhada de reuniões, ensaios e eventos internos</li>
-        <li>Lista de orações e pedidos reservados</li>
-        <li>Arquivos e documentos importantes da igreja</li>
-        <li>Fotos e vídeos exclusivos dos encontros e eventos internos</li>
-      </ul>
-    </div>
   </section>
 
   <footer>
@@ -196,7 +183,7 @@
     function acessarAreaSecreta() {
       const senha = prompt("Digite a senha para acessar a área exclusiva:");
       if (senha === "36737829") {
-        document.getElementById("areaSecreta").style.display = "block";
+        window.location.href = "areasecreta.html";
       } else {
         alert("Senha incorreta! Acesso negado.");
       }
