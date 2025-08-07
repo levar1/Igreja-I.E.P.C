@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>I.E.P.C - Igreja Evangélica Pentecostal Cristã</title>
+  <title>I.E.P.C - Área Principal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #fdfcf7;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       color: #333;
     }
     header {
@@ -33,68 +34,10 @@
     nav a:hover {
       text-decoration: underline;
     }
-    main {
+    .section {
+      padding: 2rem;
       max-width: 900px;
-      margin: 1rem auto;
-      padding: 1rem;
-      background-color: #fff8e1;
-      border: 2px solid darkred;
-      border-radius: 8px;
-    }
-    #welcomeMsg {
-      font-weight: bold;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      color: darkred;
-    }
-    #chatMessages {
-      height: 300px;
-      border: 1px solid #aaa;
-      padding: 10px;
-      overflow-y: auto;
-      background-color: #fff;
-      margin-bottom: 1rem;
-      white-space: pre-wrap;
-    }
-    #chatInput {
-      width: 75%;
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
-    #sendBtn {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: darkred;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-      margin-left: 5px;
-    }
-    #sendBtn:hover {
-      background-color: #a30000;
-    }
-    #logoutBtn {
-      background-color: darkred;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 1rem;
-      display: block;
-    }
-    #logoutBtn:hover {
-      background-color: #a30000;
-    }
-    /* Conteúdo da igreja */
-    section {
-      margin-top: 2rem;
-    }
-    h2 {
-      color: darkred;
-      margin-bottom: 1rem;
+      margin: auto;
     }
     .destaque {
       background-color: #fff3cd;
@@ -103,23 +46,74 @@
       margin-bottom: 2rem;
       font-style: italic;
     }
-    p, ul {
+    h2 {
+      color: darkred;
       margin-bottom: 1rem;
     }
-    a.email-link {
-      color: darkred;
-      font-weight: bold;
-      text-decoration: none;
+    footer {
+      background-color: darkred;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
     }
-    a.email-link:hover {
-      text-decoration: underline;
+    #avatarPreview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid darkred;
+      margin-bottom: 1rem;
+    }
+    #chatMessages {
+      border: 1px solid darkred;
+      height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+      background: #fff8e1;
+      margin-bottom: 1rem;
+    }
+    #chatInput {
+      width: 80%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid darkred;
+      border-radius: 4px;
+    }
+    #sendBtn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: darkred;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+    #sendBtn:hover {
+      background-color: #a30000;
+    }
+    #logoutBtn {
+      background-color: darkred;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+      margin-top: -2.7rem;
+      margin-right: 1rem;
+    }
+    #logoutBtn:hover {
+      background-color: #a30000;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Igreja Evangélica Pentecostal Cristã (I.E.P.C)</h1>
+    <h1>I.E.P.C - Área Principal</h1>
+    <button id="logoutBtn">Sair</button>
+    <p id="welcomeMsg"></p>
   </header>
 
   <nav>
@@ -128,75 +122,85 @@
     <a href="#historia">História</a>
     <a href="#ministerios">Ministérios</a>
     <a href="#agenda">Agenda</a>
+    <a href="#chatSection">Chat</a>
   </nav>
 
-  <main>
-    <p id="welcomeMsg">Carregando usuário...</p>
+  <section class="section" id="inicio">
+    <div class="destaque">
+      <strong>Versículo do dia:</strong> "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna." - João 3:16
+    </div>
+    <p>A I.E.P.C é liderada pelo pastor Airton e está localizada na Rua Curitiba, 2209 – final da rua, em <strong>Fazenda Rio Grande</strong>. Temos cultos aos domingos às 15h e Santa Ceia no segundo domingo de cada mês, às <strong>10h da manhã</strong>. Também realizamos encontros de jovens aos sábados.</p>
+    <p>Confira nosso canal no YouTube para acompanhar transmissões e novidades:</p>
+    <p><a href="https://youtube.com/@igrejai.e.p.cfazendariogrande?si=og6EF48hcd3Zk6iv" target="_blank" rel="noopener noreferrer" style="color: darkred; font-weight: bold;">Canal I.E.P.C Fazenda Rio Grande</a></p>
+  </section>
 
+  <section class="section" id="contato">
+    <h2>Contato</h2>
+    <p><strong>Endereço:</strong> Rua Curitiba, 2209 – Final da rua, Fazenda Rio Grande</p>
+    <p><strong>Pastor responsável:</strong> Airton</p>
+    <p><strong>Cultos:</strong> Domingo às 15h</p>
+    <p><strong>Santa Ceia:</strong> 2º domingo do mês às 10h da manhã</p>
+    <p><strong>Pedidos de oração por e-mail:</strong> <a href="mailto:igreja.e.p.cfazendariogrande@gmail.com" style="color: darkred; font-weight: bold;">igreja.e.p.cfazendariogrande@gmail.com</a></p>
+  </section>
+
+  <section class="section" id="historia">
+    <h2>História da Igreja</h2>
+    <p>Um dia, o pastor e a família dele foram passear em Fazenda Rio Grande. Primeiro, estavam tendo uma festa de confraternização, e o pastor não estava se sentindo bem lá, porque tinha muita bebedeira e álcool. Foi aí que ele teve a vontade de ir embora.</p>
+    <p>Quando ele foi falar com o seu pai para se despedir, o pastor sentiu que o Espírito Santo estava dizendo que era hora de fazer uma oração. Então ele fez uma oração antes de ir embora.</p>
+    <p>Assim que terminou a oração, o pai do pastor falou que também queria fazer outra oração. E ali nasceu a vontade de fazer uma célula naquele lugar.</p>
+    <p>Uma vez por mês, levavam uma célula lá. Um dia, quem levava a célula organizou uma vigília. Nessa vigília, foi levada uma irmã que congregava em Fazenda Rio Grande, no centro da cidade.</p>
+    <p>Essa irmã foi direcionada pelo Espírito Santo e profetizou a compra de um terreno para a igreja. Daí pra frente, com muita oração e trabalho, a igreja chegou aonde está hoje!</p>
+  </section>
+
+  <section class="section" id="ministerios">
+    <h2>Ministérios Ativos</h2>
+    <ul>
+      <li><strong>Louvor</strong> – Responsável: Lucas</li>
+      <li><strong>Jovens</strong> – Responsáveis: Lucas e Cleiceane</li>
+    </ul>
+    <p>Os ministérios de ação social, evangelismo, casais e intercessão ainda acontecem concentrados em um único dia e serão organizados futuramente em dias separados.</p>
+  </section>
+
+  <section class="section" id="agenda">
+    <h2>Agenda de Eventos</h2>
+    <p><strong>Culto Normal:</strong> Todos os domingos às 15h</p>
+    <p><strong>Santa Ceia:</strong> Segundo domingo do mês às 10h da manhã</p>
+    <p><strong>Batismo:</strong> Logo após a Santa Ceia</p>
+    <p><strong>Eventos especiais aos sábados:</strong></p>
+    <ul>
+      <li>09/08 – Encontro de Casais</li>
+      <li>16/08 – Célula</li>
+      <li>23/08 – Encontro de Jovens</li>
+      <li>30/08 – Acampadentro das Meninas</li>
+    </ul>
+  </section>
+
+  <section class="section" id="avatarSection">
+    <h2>Personalize seu Avatar</h2>
+    <img id="avatarPreview" src="" alt="Avatar do usuário" />
+    <input type="file" id="avatarInput" accept="image/*" />
+    <button id="uploadAvatarBtn">Enviar Avatar</button>
+  </section>
+
+  <section class="section" id="chatSection">
+    <h2>Chat da Igreja</h2>
     <div id="chatMessages"></div>
-    <input type="text" id="chatInput" placeholder="Digite sua mensagem..." autocomplete="off" />
+    <input type="text" id="chatInput" placeholder="Digite sua mensagem aqui..." />
     <button id="sendBtn">Enviar</button>
-    <button id="logoutBtn">Sair</button>
+  </section>
 
-    <!-- Conteúdo da igreja -->
-    <section id="inicio">
-      <div class="destaque">
-        <strong>Versículo do dia:</strong> "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna." - João 3:16
-      </div>
-      <p>A I.E.P.C é liderada pelo pastor Airton e está localizada na Rua Curitiba, 2209 – final da rua, em <strong>Fazenda Rio Grande</strong>. Temos cultos aos domingos às 15h e Santa Ceia no segundo domingo de cada mês, às <strong>10h da manhã</strong>. Também realizamos encontros de jovens aos sábados.</p>
-      <p>Confira nosso canal no YouTube para acompanhar transmissões e novidades:</p>
-      <p><a href="https://youtube.com/@igrejai.e.p.cfazendariogrande?si=og6EF48hcd3Zk6iv" target="_blank" rel="noopener noreferrer" class="email-link">Canal I.E.P.C Fazenda Rio Grande</a></p>
-    </section>
-
-    <section id="contato">
-      <h2>Contato</h2>
-      <p><strong>Endereço:</strong> Rua Curitiba, 2209 – Final da rua, Fazenda Rio Grande</p>
-      <p><strong>Pastor responsável:</strong> Airton</p>
-      <p><strong>Cultos:</strong> Domingo às 15h</p>
-      <p><strong>Santa Ceia:</strong> 2º domingo do mês às 10h da manhã</p>
-      <p><strong>Pedidos de oração por e-mail:</strong> <a href="mailto:igreja.e.p.cfazendariogrande@gmail.com" class="email-link">igreja.e.p.cfazendariogrande@gmail.com</a></p>
-    </section>
-
-    <section id="historia">
-      <h2>História da Igreja</h2>
-      <p>Um dia, o pastor e a família dele foram passear em Fazenda Rio Grande. Primeiro, estavam tendo uma festa de confraternização, e o pastor não estava se sentindo bem lá, porque tinha muita bebedeira e álcool. Foi aí que ele teve a vontade de ir embora.</p>
-      <p>Quando ele foi falar com o seu pai para se despedir, o pastor sentiu que o Espírito Santo estava dizendo que era hora de fazer uma oração. Então ele fez uma oração antes de ir embora.</p>
-      <p>Assim que terminou a oração, o pai do pastor falou que também queria fazer outra oração. E ali nasceu a vontade de fazer uma célula naquele lugar.</p>
-      <p>Uma vez por mês, levavam uma célula lá. Um dia, quem levava a célula organizou uma vigília. Nessa vigília, foi levada uma irmã que congregava em Fazenda Rio Grande, no centro da cidade.</p>
-      <p>Essa irmã foi direcionada pelo Espírito Santo e profetizou a compra de um terreno para a igreja. Daí pra frente, com muita oração e trabalho, a igreja chegou aonde está hoje!</p>
-    </section>
-
-    <section id="ministerios">
-      <h2>Ministérios Ativos</h2>
-      <ul>
-        <li><strong>Louvor</strong> – Responsável: Lucas</li>
-        <li><strong>Jovens</strong> – Responsáveis: Lucas e Cleiceane</li>
-      </ul>
-      <p>Os ministérios de ação social, evangelismo, casais e intercessão ainda acontecem concentrados em um único dia e serão organizados futuramente em dias separados.</p>
-    </section>
-
-    <section id="agenda">
-      <h2>Agenda de Eventos</h2>
-      <p><strong>Culto Normal:</strong> Todos os domingos às 15h</p>
-      <p><strong>Santa Ceia:</strong> Segundo domingo do mês às 10h da manhã</p>
-      <p><strong>Batismo:</strong> Logo após a Santa Ceia</p>
-      <p><strong>Eventos especiais aos sábados:</strong></p>
-      <ul>
-        <li>09/08 – Encontro de Casais</li>
-        <li>16/08 – Célula</li>
-        <li>23/08 – Encontro de Jovens</li>
-        <li>30/08 – Acampadentro das Meninas</li>
-      </ul>
-    </section>
-  </main>
+  <footer>
+    &copy; 2025 I.E.P.C - Desenvolvido por RAVEL, 6º ano TD
+  </footer>
 
   <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 
   <script>
-    // Config Firebase - substitua pela sua config
+    // Config Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
       authDomain: "login-igreja.firebaseapp.com",
@@ -206,73 +210,97 @@
       appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
       measurementId: "G-P3L7MN23S0"
     };
-
-    // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
+
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
-    // Elementos DOM
+    // Elements
     const welcomeMsg = document.getElementById('welcomeMsg');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const avatarInput = document.getElementById('avatarInput');
+    const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
+
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
 
-    let userName = null;
+    let currentUser = null;
 
-    // Verifica autenticação
+    // Verifica se está logado
     auth.onAuthStateChanged(user => {
       if (user) {
-        userName = user.email.split('@')[0];
-        welcomeMsg.textContent = `Bem-vindo(a), ${userName}!`;
-        carregarMensagens();
+        currentUser = user;
+        welcomeMsg.textContent = `Bem-vindo, ${user.email}`;
+        loadAvatar(user.uid);
+        loadChatMessages();
       } else {
-        window.location.href = "login.html";
+        window.location.href = "login.html"; // redireciona para login se não estiver logado
       }
     });
 
-    // Enviar mensagem
-    sendBtn.addEventListener('click', () => {
-      const texto = chatInput.value.trim();
-      if(texto.length === 0) return;
+    logoutBtn.onclick = () => {
+      auth.signOut();
+    };
 
-      db.collection('mensagens').add({
-        user: userName,
-        texto: texto,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        chatInput.value = '';
-      }).catch(err => {
-        alert('Erro ao enviar mensagem: ' + err);
-      });
-    });
-
-    // Mostrar mensagens em tempo real
-    function carregarMensagens() {
-      db.collection('mensagens')
-        .orderBy('timestamp')
-        .limit(50)
-        .onSnapshot(snapshot => {
-          chatMessages.innerHTML = '';
-          snapshot.forEach(doc => {
-            const msg = doc.data();
-            const hora = msg.timestamp ? msg.timestamp.toDate().toLocaleTimeString() : '';
-            const div = document.createElement('div');
-            div.textContent = `${hora} - ${msg.user} mandou: ${msg.texto}`;
-            chatMessages.appendChild(div);
+    // Upload avatar
+    uploadAvatarBtn.onclick = () => {
+      const file = avatarInput.files[0];
+      if (!file) {
+        alert("Escolha uma imagem para enviar.");
+        return;
+      }
+      const uploadTask = storage.ref(`avatars/${currentUser.uid}`).put(file);
+      uploadTask.on('state_changed', 
+        null, 
+        error => alert("Erro ao enviar avatar: " + error.message),
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then(url => {
+            avatarPreview.src = url;
+            db.collection('users').doc(currentUser.uid).set({ avatarUrl: url }, { merge: true });
+            alert("Avatar enviado com sucesso!");
           });
-          chatMessages.scrollTop = chatMessages.scrollHeight;
         });
+    };
+
+    function loadAvatar(uid) {
+      db.collection('users').doc(uid).get().then(doc => {
+        if (doc.exists && doc.data().avatarUrl) {
+          avatarPreview.src = doc.data().avatarUrl;
+        } else {
+          avatarPreview.src = "";
+        }
+      });
     }
 
-    // Logout
-    logoutBtn.addEventListener('click', () => {
-      auth.signOut().then(() => {
-        window.location.href = "login.html";
+    // Chat
+    sendBtn.onclick = () => {
+      const text = chatInput.value.trim();
+      if (text === "") return;
+      db.collection('chatMessages').add({
+        uid: currentUser.uid,
+        email: currentUser.email,
+        text: text,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-    });
-  </script>
+      chatInput.value = "";
+    };
 
+    function loadChatMessages() {
+      db.collection('chatMessages').orderBy('timestamp').onSnapshot(snapshot => {
+        chatMessages.innerHTML = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const msgDiv = document.createElement('div');
+          const time = data.timestamp ? data.timestamp.toDate().toLocaleTimeString() : "";
+          msgDiv.textContent = `[${time}] ${data.email}: ${data.text}`;
+          chatMessages.appendChild(msgDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+      });
+    }
+  </script>
 </body>
-  </html>
+        </html>
