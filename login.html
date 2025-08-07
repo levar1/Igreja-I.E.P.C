@@ -1,99 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Login I.E.P.C</title>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut,
-  } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "SEU_AUTH_DOMAIN_AQUI",
-    projectId: "SEU_PROJECT_ID_AQUI",
-    storageBucket: "SEU_STORAGE_BUCKET_AQUI",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI",
-    appId: "SEU_APP_ID_AQUI",
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth();
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      window.location.href = "principal.html";
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - I.E.P.C</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfcf7;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-  });
-
-  window.registrar = async () => {
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    if (!email || !senha) {
-      alert("Preencha email e senha!");
-      return;
+    .container {
+      background: white;
+      padding: 2rem;
+      border: 2px solid darkred;
+      border-radius: 8px;
+      width: 320px;
     }
-    try {
-      await createUserWithEmailAndPassword(auth, email, senha);
-      alert("Conta criada com sucesso!");
-    } catch (e) {
-      alert("Erro ao registrar: " + e.message);
+    h2 {
+      color: darkred;
+      text-align: center;
+      margin-bottom: 1rem;
     }
-  };
-
-  window.login = async () => {
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    if (!email || !senha) {
-      alert("Preencha email e senha!");
-      return;
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
     }
-    try {
-      await signInWithEmailAndPassword(auth, email, senha);
-      window.location.href = "principal.html";
-    } catch (e) {
-      alert("Erro no login: " + e.message);
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-  };
-</script>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #fdfcf7;
-    color: #333;
-    padding: 20px;
-  }
-  input {
-    display: block;
-    margin: 10px 0;
-    padding: 8px;
-    width: 100%;
-    max-width: 300px;
-  }
-  button {
-    margin-right: 10px;
-    padding: 10px 20px;
-    background: darkred;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #a30000;
-  }
-</style>
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      background-color: darkred;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: darkred;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: block;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    #error-msg {
+      color: red;
+      margin-top: 1rem;
+      text-align: center;
+      min-height: 1.2rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Login I.E.P.C</h1>
-  <input type="email" id="email" placeholder="Email" />
-  <input type="password" id="senha" placeholder="Senha" />
-  <button onclick="login()">Entrar</button>
-  <button onclick="registrar()">Registrar</button>
+  <div class="container">
+    <h2 id="form-title">Entrar</h2>
+    <form id="auth-form">
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" required autocomplete="username" />
+      
+      <label for="password">Senha:</label>
+      <input type="password" id="password" required autocomplete="current-password" />
+
+      <button type="submit" id="submit-btn">Entrar</button>
+    </form>
+    <button class="toggle-btn" id="toggle-btn">Criar nova conta</button>
+    <div id="error-msg"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuração do Firebase - substitua pelas suas credenciais
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY_AQUI",
+      authDomain: "SEU_AUTH_DOMAIN.firebaseapp.com",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_STORAGE_BUCKET.appspot.com",
+      messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+      appId: "SEU_APP_ID",
+      measurementId: "SEU_MEASUREMENT_ID"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Referências do DOM
+    const authForm = document.getElementById("auth-form");
+    const toggleBtn = document.getElementById("toggle-btn");
+    const formTitle = document.getElementById("form-title");
+    const submitBtn = document.getElementById("submit-btn");
+    const errorMsg = document.getElementById("error-msg");
+
+    let isLogin = true; // controla o estado do formulário
+
+    toggleBtn.addEventListener("click", () => {
+      isLogin = !isLogin;
+      if (isLogin) {
+        formTitle.textContent = "Entrar";
+        submitBtn.textContent = "Entrar";
+        toggleBtn.textContent = "Criar nova conta";
+        errorMsg.textContent = "";
+      } else {
+        formTitle.textContent = "Registrar";
+        submitBtn.textContent = "Registrar";
+        toggleBtn.textContent = "Já tenho conta";
+        errorMsg.textContent = "";
+      }
+    });
+
+    authForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = authForm.email.value.trim();
+      const password = authForm.password.value.trim();
+      errorMsg.textContent = "";
+
+      if (isLogin) {
+        // Login
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => {
+            window.location.href = "principal.html"; // redireciona ao login OK
+          })
+          .catch((error) => {
+            errorMsg.textContent = error.message;
+          });
+      } else {
+        // Registrar
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            window.location.href = "principal.html"; // redireciona após registro OK
+          })
+          .catch((error) => {
+            errorMsg.textContent = error.message;
+          });
+      }
+    });
+
+    // Mantém o usuário logado e redireciona automaticamente se já estiver autenticado
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        window.location.href = "principal.html";
+      }
+    });
+  </script>
 </body>
-</html>
+</html>u
