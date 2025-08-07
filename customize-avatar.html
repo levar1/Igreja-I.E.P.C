@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customizar Avatar - I.E.P.C</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdfcf7;
+      color: #333;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      color: darkred;
+      text-align: center;
+    }
+    #avatarPreview {
+      display: block;
+      margin: 20px auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid darkred;
+      object-fit: cover;
+      filter: var(--filter, none);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: darkred;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    button {
+      background-color: darkred;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    #logoutBtn {
+      background-color: darkred;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+    #logoutBtn:hover {
+      background-color: #a30000;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="logoutBtn">Sair</button>
+  <h1>Customizar seu Avatar</h1>
+
+  <img id="avatarPreview" src="" alt="Avatar do usuário" />
+
+  <label for="avatarInput">Escolha uma nova imagem:</label>
+  <input type="file" id="avatarInput" accept="image/*" />
+
+  <label for="brightnessRange">Brilho</label>
+  <input type="range" id="brightnessRange" min="50" max="150" value="100" />
+
+  <label for="grayscaleRange">Escala de Cinza (%)</label>
+  <input type="range" id="grayscaleRange" min="0" max="100" value="0" />
+
+  <label for="saturateRange">Saturação (%)</label>
+  <input type="range" id="saturateRange" min="0" max="200" value="100" />
+
+  <button id="saveBtn">Salvar Avatar Customizado</button>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
+      authDomain: "login-igreja.firebaseapp.com",
+      projectId: "login-igreja",
+      storageBucket: "login-igreja.appspot.com",
+      messagingSenderId: "65515596204",
+      appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
+      measurementId: "G-P3L7MN23S0"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    const avatarPreview = document.getElementById('avatarPreview');
+    const avatarInput = document.getElementById('avatarInput');
+    const brightnessRange = document.getElementById('brightnessRange');
+    const grayscaleRange = document.getElementById('grayscaleRange');
+    const saturateRange = document.getElementById('saturateRange');
+    const saveBtn = document.getElementById('saveBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    let currentUser = null;
+    let originalImageFile = null;
+
+    // Atualiza o filtro do avatarPreview
+    function updateFilter() {
+      const brightness = brightnessRange.value;
+      const grayscale = grayscaleRange.value;
+      const saturate = saturateRange.value;
+      avatarPreview.style.filter = `brightness(${brightness}%) grayscale(${grayscale}%) saturate(${saturate}%)`;
+      avatarPreview.style.setProperty('--filter', avatarPreview.style.filter);
+    }
+
+    // Carrega avatar salvo do usuário
+    function loadAvatar(uid) {
+      db.collection('users').doc(uid).get().then(doc => {
+        if (doc.exists && doc.data().avatarUrl) {
+          avatarPreview.src = doc.data().avatarUrl;
+        } else {
+          avatarPreview.src = '';
+        }
+      });
+    }
+
+    // Autenticação
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = 'login.html'; // redireciona se não logado
+      } else {
+        currentUser = user;
+        loadAvatar(user.uid);
+      }
+    });
+
+    // Input arquivo
+    avatarInput.addEventListener('change', () => {
+      const file = avatarInput.files[0];
+      if (!file) return;
+      originalImageFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        avatarPreview.src = e.target.result;
+        updateFilter();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Atualiza filtros ao mudar ranges
+    brightnessRange.addEventListener('input', updateFilter);
+    grayscaleRange.addEventListener('input', updateFilter);
+    saturateRange.addEventListener('input', updateFilter);
+
+    // Botão salvar avatar
+    saveBtn.addEventListener('click', async () => {
+      if (!originalImageFile) {
+        alert("Por favor, escolha uma imagem para salvar.");
+        return;
+      }
+      // Criar canvas para aplicar filtros e gerar nova imagem
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = avatarPreview.src;
+
+      img.onload = async () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Aplica filtros CSS no canvas (simulação)
+        ctx.filter = `brightness(${brightnessRange.value}%) grayscale(${grayscaleRange.value}%) saturate(${saturateRange.value}%)`;
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(async blob => {
+          // Envia para o Firebase Storage
+          const uploadTask = storage.ref(`avatars/${currentUser.uid}.png`).put(blob);
+          uploadTask.on('state_changed', 
+            null,
+            error => alert('Erro ao salvar avatar: ' + error.message),
+            async () => {
+              const url = await uploadTask.snapshot.ref.getDownloadURL();
+              await db.collection('users').doc(currentUser.uid).set({ avatarUrl: url }, { merge: true });
+              alert('Avatar customizado salvo com sucesso!');
+            }
+          );
+        }, 'image/png');
+      };
+    });
+
+    logoutBtn.onclick = () => {
+      auth.signOut();
+    };
+  </script>
+</body>
+</html>
