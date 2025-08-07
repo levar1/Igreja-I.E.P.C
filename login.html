@@ -3,31 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - Igreja I.E.P.C</title>
+  <title>Login - I.E.P.C</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #fdfcf7;
+      color: #333;
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
-      color: #333;
     }
     .container {
       background: #fff8e1;
       border: 2px solid darkred;
       padding: 2rem;
+      width: 320px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
-      text-align: center;
     }
-    input {
-      width: 90%;
-      padding: 0.7rem;
-      margin: 0.5rem 0;
+    h2 {
+      color: darkred;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    form {
+      display: none;
+      flex-direction: column;
+    }
+    form.active {
+      display: flex;
+    }
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
       border: 1px solid darkred;
       border-radius: 4px;
       font-size: 1rem;
@@ -36,90 +48,151 @@
       background-color: darkred;
       color: white;
       border: none;
-      padding: 0.7rem 1.2rem;
+      padding: 0.7rem;
       font-size: 1rem;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 1rem;
-      width: 95%;
+      margin-bottom: 1rem;
     }
     button:hover {
       background-color: #a30000;
     }
-    #msg {
-      margin-top: 1rem;
+    .toggle-btn {
+      background: none;
+      border: none;
       color: darkred;
-      font-weight: bold;
-      min-height: 1.5em;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 0.9rem;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .error {
+      color: red;
+      margin-bottom: 1rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2 id="formTitle">Login</h2>
 
-<div class="container">
-  <h1>Login - I.E.P.C</h1>
+    <!-- Login Form -->
+    <form id="loginForm" class="active">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <button type="button" class="toggle-btn" onclick="showCreate()">Não tem conta? Cadastre-se</button>
+      <p class="error" id="loginError"></p>
+    </form>
 
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Digite seu e-mail" required />
-    <input type="password" id="senha" placeholder="Digite sua senha" required />
-    <button type="submit">Entrar</button>
-  </form>
+    <!-- Create Account Form -->
+    <form id="createForm">
+      <input type="email" id="createEmail" placeholder="Email" required />
+      <input type="password" id="createPassword" placeholder="Senha" required />
+      <input type="password" id="createPasswordConfirm" placeholder="Confirme a senha" required />
+      <button type="submit">Cadastrar</button>
+      <button type="button" class="toggle-btn" onclick="showLogin()">Já tem conta? Faça login</button>
+      <p class="error" id="createError"></p>
+    </form>
+  </div>
 
-  <p id="msg"></p>
-</div>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script>
+    // Configuração do Firebase (substitua pelos seus dados)
+    const firebaseConfig = {
+      apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
+      authDomain: "login-igreja.firebaseapp.com",
+      projectId: "login-igreja",
+      storageBucket: "login-igreja.appspot.com",
+      messagingSenderId: "65515596204",
+      appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
+      measurementId: "G-P3L7MN23S0"
+    };
 
-<script>
-  // Config do Firebase do seu projeto
-  const firebaseConfig = {
-    apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
-    authDomain: "login-igreja.firebaseapp.com",
-    projectId: "login-igreja",
-    storageBucket: "login-igreja.firebasestorage.app",
-    messagingSenderId: "65515596204",
-    appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
-    measurementId: "G-P3L7MN23S0"
-  };
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  // Inicializa o Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+    // Elementos do DOM
+    const loginForm = document.getElementById('loginForm');
+    const createForm = document.getElementById('createForm');
+    const formTitle = document.getElementById('formTitle');
+    const loginError = document.getElementById('loginError');
+    const createError = document.getElementById('createError');
 
-  const loginForm = document.getElementById('loginForm');
-  const msg = document.getElementById('msg');
-
-  // Quando o formulário for enviado
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
-
-    auth.signInWithEmailAndPassword(email, senha)
-      .then(() => {
-        msg.textContent = "Login efetuado com sucesso! Redirecionando...";
-        setTimeout(() => {
-          window.location.href = "principal.html"; // Mude aqui para a página após login
-        }, 1500);
-      })
-      .catch((error) => {
-        msg.textContent = "Erro no login: " + error.message;
-      });
-  });
-
-  // Mantém usuário logado e redireciona direto
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      msg.textContent = "Você já está logado. Redirecionando...";
-      setTimeout(() => {
-        window.location.href = "principal.html";
-      }, 1500);
+    // Mostrar cadastro
+    function showCreate() {
+      loginForm.classList.remove('active');
+      createForm.classList.add('active');
+      formTitle.textContent = 'Cadastro';
+      loginError.textContent = '';
+      createError.textContent = '';
     }
-  });
-</script>
 
+    // Mostrar login
+    function showLogin() {
+      createForm.classList.remove('active');
+      loginForm.classList.add('active');
+      formTitle.textContent = 'Login';
+      loginError.textContent = '';
+      createError.textContent = '';
+    }
+
+    // Cadastro
+    createForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      createError.textContent = '';
+
+      const email = document.getElementById('createEmail').value;
+      const password = document.getElementById('createPassword').value;
+      const passwordConfirm = document.getElementById('createPasswordConfirm').value;
+
+      if(password !== passwordConfirm) {
+        createError.textContent = 'As senhas não coincidem.';
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert('Conta criada com sucesso! Faça login agora.');
+          showLogin();
+          createForm.reset();
+        })
+        .catch(error => {
+          createError.textContent = error.message;
+        });
+    });
+
+    // Login
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      loginError.textContent = '';
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          // Login OK, redirecionar para página principal da igreja
+          window.location.href = "index.html"; // Altere para sua página principal
+        })
+        .catch(error => {
+          loginError.textContent = 'Email ou senha inválidos.';
+        });
+    });
+
+    // Se já estiver logado, já manda direto para index.html
+    auth.onAuthStateChanged(user => {
+      if(user) {
+        window.location.href = "index.html";
+      }
+    });
+  </script>
 </body>
 </html>
