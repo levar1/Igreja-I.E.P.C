@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Igreja I.E.P.C</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfcf7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      background: #fff8e1;
+      border: 2px solid darkred;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid darkred;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: darkred;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 95%;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    #msg {
+      margin-top: 1rem;
+      color: darkred;
+      font-weight: bold;
+      min-height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Login - I.E.P.C</h1>
+
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Digite seu e-mail" required />
+    <input type="password" id="senha" placeholder="Digite sua senha" required />
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p id="msg"></p>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+
+<script>
+  // Config do Firebase do seu projeto
+  const firebaseConfig = {
+    apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
+    authDomain: "login-igreja.firebaseapp.com",
+    projectId: "login-igreja",
+    storageBucket: "login-igreja.firebasestorage.app",
+    messagingSenderId: "65515596204",
+    appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
+    measurementId: "G-P3L7MN23S0"
+  };
+
+  // Inicializa o Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  const loginForm = document.getElementById('loginForm');
+  const msg = document.getElementById('msg');
+
+  // Quando o formulário for enviado
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    auth.signInWithEmailAndPassword(email, senha)
+      .then(() => {
+        msg.textContent = "Login efetuado com sucesso! Redirecionando...";
+        setTimeout(() => {
+          window.location.href = "principal.html"; // Mude aqui para a página após login
+        }, 1500);
+      })
+      .catch((error) => {
+        msg.textContent = "Erro no login: " + error.message;
+      });
+  });
+
+  // Mantém usuário logado e redireciona direto
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      msg.textContent = "Você já está logado. Redirecionando...";
+      setTimeout(() => {
+        window.location.href = "principal.html";
+      }, 1500);
+    }
+  });
+</script>
+
+</body>
+</html>
