@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel - I.E.P.C</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
@@ -17,10 +17,10 @@
 <body>
   <header>
     <h1>Painel da Igreja I.E.P.C</h1>
-    <p>Bem-vindo! Você está logado.</p>
+    <p id="status">Carregando usuário...</p>
   </header>
 
-  <main>
+  <main id="conteudo" style="display:none;">
     <section id="info-igreja">
       <h2>Informações da Igreja</h2>
       <div id="igreja-data">Carregando...</div>
@@ -34,14 +34,13 @@
     <section id="chat">
       <h2>Chat</h2>
       <div id="chat-mensagens">Carregando...</div>
-      <input type="text" id="mensagem" placeholder="Digite sua mensagem...">
+      <input type="text" id="mensagem" placeholder="Digite sua mensagem..." />
       <button onclick="enviarMensagem()">Enviar</button>
     </section>
 
     <button onclick="logout()">Sair</button>
   </main>
 
-  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
@@ -59,6 +58,9 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+
+    const statusEl = document.getElementById("status");
+    const conteudoEl = document.getElementById("conteudo");
 
     async function carregarIgreja() {
       const snap = await getDocs(collection(db, "igreja"));
@@ -106,17 +108,22 @@
 
     function logout() {
       signOut(auth).then(() => {
-        window.location.href = "index.html";
+        window.location.href = "login.html"; // ajuste aqui para sua página de login
       });
     }
 
-    onAuthStateChanged(auth, user => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
+        statusEl.textContent = `Bem-vindo, ${user.email}`;
+        conteudoEl.style.display = "block";
         carregarIgreja();
         carregarAgenda();
         carregarChat();
       } else {
-        window.location.href = "index.html";
+        statusEl.textContent = "Usuário não autenticado. Redirecionando para login...";
+        setTimeout(() => {
+          window.location.href = "login.html"; // ajuste para sua página de login
+        }, 1500);
       }
     });
   </script>
