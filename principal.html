@@ -20,7 +20,7 @@
     text-align: center;
     border-radius: 8px;
   }
-  button {
+  button, #linkExtra {
     background: darkred;
     color: white;
     border: none;
@@ -28,8 +28,11 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
   }
-  button:hover {
+  button:hover, #linkExtra:hover {
     background: #a30000;
   }
 </style>
@@ -42,9 +45,9 @@
 
 <p>Você está logado! Aqui você pode ver as informações da igreja, ministérios, agenda e muito mais.</p>
 
-<!-- Conteúdo da igreja pode ser colocado aqui -->
-
 <button id="btnLogout">Sair</button>
+<br/>
+<a href="#" id="linkExtra">Aperte aqui para ir ao Painel</a>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
@@ -76,6 +79,12 @@
     signOut(auth).then(() => {
       window.location.href = "login.html";
     });
+  });
+
+  // Link "Aperte aqui" redireciona para painel.html
+  document.getElementById("linkExtra").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "painel.html";
   });
 </script>
 
