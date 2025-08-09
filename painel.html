@@ -1,202 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel - I.E.P.C</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background: #fdfcf7;
-      margin: 0;
-      padding: 0;
-      color: #4b1e0f;
-      text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5);
-      line-height: 1.6;
-    }
-    header {
-      background: linear-gradient(45deg, gold, darkred);
-      color: white;
-      padding: 15px;
-      text-align: center;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-    main {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    section {
-      background: white;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      color: #4b1e0f;
-      text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);
-      font-weight: 600;
-    }
-    h2 {
-      margin-top: 0;
-      color: darkred;
-      text-shadow: 1px 1px 3px rgba(139,0,0,0.7);
-      font-weight: 900;
-      letter-spacing: 1.5px;
-    }
-    button {
-      background: darkred;
-      color: gold;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Arial Black', Arial, sans-serif;
-      font-weight: 900;
-      letter-spacing: 2px;
-      box-shadow: 0 0 10px gold;
-      transition: all 0.3s ease;
-      text-shadow: 1px 1px 2px black;
-    }
-    button:hover {
-      background: #a30000;
-      box-shadow: 0 0 20px orange;
-      color: #fff3cd;
-      text-shadow: 2px 2px 4px black;
-    }
-    #mensagem {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid darkred;
-      font-family: 'Georgia', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      box-shadow: inset 0 0 5px rgba(255, 215, 0, 0.3);
-      color: #4b1e0f;
-      text-shadow: 1px 1px 1px rgba(255, 215, 0, 0.2);
-    }
-    #mensagem:focus {
-      outline: none;
-      border-color: gold;
-      box-shadow: 0 0 10px gold;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel - I.E.P.C</title>
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    background: #fdfcf7;
+    margin: 0;
+    padding: 0;
+    color: #4b1e0f;
+    text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5);
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(45deg, gold, darkred);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  main {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    display: none; /* Esconde até autenticar */
+  }
+  section {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: #4b1e0f;
+    text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);
+    font-weight: 600;
+  }
+  h2 {
+    margin-top: 0;
+    color: darkred;
+    text-shadow: 1px 1px 3px rgba(139,0,0,0.7);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+  }
+  button {
+    background: darkred;
+    color: gold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    box-shadow: 0 0 10px gold;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px black;
+  }
+  button:hover {
+    background: #a30000;
+    box-shadow: 0 0 20px orange;
+    color: #fff3cd;
+    text-shadow: 2px 2px 4px black;
+  }
+  #mensagem {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid darkred;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    box-shadow: inset 0 0 5px rgba(255, 215, 0, 0.3);
+    color: #4b1e0f;
+    text-shadow: 1px 1px 1px rgba(255, 215, 0, 0.2);
+  }
+  #mensagem:focus {
+    outline: none;
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+  }
+  #chat-mensagens {
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid darkred;
+    padding: 8px;
+    background: #fff8e1;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Painel da Igreja I.E.P.C</h1>
-    <p id="status">Carregando usuário...</p>
-  </header>
+<header>
+  <h1>Painel da Igreja I.E.P.C</h1>
+  <p id="status">Carregando usuário...</p>
+</header>
 
-  <main id="conteudo" style="display:none;">
-    <section id="info-igreja">
-      <h2>Informações da Igreja</h2>
-      <div id="igreja-data">Carregando...</div>
-    </section>
+<main id="conteudo">
+  <section id="info-igreja">
+    <h2>Informações da Igreja</h2>
+    <div id="igreja-data">Carregando...</div>
+  </section>
 
-    <section id="agenda">
-      <h2>Agenda</h2>
-      <div id="agenda-data">Carregando...</div>
-    </section>
+  <section id="agenda">
+    <h2>Agenda</h2>
+    <div id="agenda-data">Carregando...</div>
+  </section>
 
-    <section id="chat">
-      <h2>Chat</h2>
-      <div id="chat-mensagens">Carregando...</div>
-      <input type="text" id="mensagem" placeholder="Digite sua mensagem..." />
-      <button onclick="enviarMensagem()">Enviar</button>
-    </section>
+  <section id="chat">
+    <h2>Chat</h2>
+    <div id="chat-mensagens">Carregando...</div>
+    <input type="text" id="mensagem" placeholder="Digite sua mensagem..." />
+    <button id="btnEnviar">Enviar</button>
+  </section>
 
-    <button onclick="logout()">Sair</button>
-  </main>
+  <button id="btnLogout">Sair</button>
+</main>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-    import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "SUA_API_KEY",
-      authDomain: "SEU_AUTH_DOMAIN",
-      projectId: "SEU_PROJECT_ID",
-      storageBucket: "SEU_STORAGE_BUCKET",
-      messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-      appId: "SEU_APP_ID"
-    };
+  // Sua configuração Firebase exata do login.html
+  const firebaseConfig = {
+    apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
+    authDomain: "login-igreja.firebaseapp.com",
+    projectId: "login-igreja",
+    storageBucket: "login-igreja.firebasestorage.app",
+    messagingSenderId: "65515596204",
+    appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
+    measurementId: "G-P3L7MN23S0"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-    const statusEl = document.getElementById("status");
-    const conteudoEl = document.getElementById("conteudo");
+  const statusEl = document.getElementById("status");
+  const conteudoEl = document.getElementById("conteudo");
 
-    async function carregarIgreja() {
-      const snap = await getDocs(collection(db, "igreja"));
-      let html = "";
-      snap.forEach(doc => {
-        const data = doc.data();
-        html += `<p><b>${data.titulo}:</b> ${data.descricao}</p>`;
-      });
-      document.getElementById("igreja-data").innerHTML = html || "Nenhuma informação encontrada.";
-    }
-
-    async function carregarAgenda() {
-      const snap = await getDocs(collection(db, "agenda"));
-      let html = "";
-      snap.forEach(doc => {
-        const data = doc.data();
-        html += `<p><b>${data.data}:</b> ${data.evento}</p>`;
-      });
-      document.getElementById("agenda-data").innerHTML = html || "Nenhum evento cadastrado.";
-    }
-
-    async function carregarChat() {
-      const q = query(collection(db, "chat"), orderBy("timestamp", "asc"));
-      const snap = await getDocs(q);
-      let html = "";
-      snap.forEach(doc => {
-        const data = doc.data();
-        html += `<p><b>${data.usuario}:</b> ${data.mensagem}</p>`;
-      });
-      document.getElementById("chat-mensagens").innerHTML = html || "Nenhuma mensagem ainda.";
-    }
-
-    async function enviarMensagem() {
-      const input = document.getElementById("mensagem");
-      if (input.value.trim() === "") return;
-      const user = auth.currentUser;
-      await addDoc(collection(db, "chat"), {
-        usuario: user.email,
-        mensagem: input.value,
-        timestamp: serverTimestamp()
-      });
-      input.value = "";
-      carregarChat();
-    }
-
-    function logout() {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      });
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        statusEl.textContent = `Bem-vindo, ${user.email}`;
-        conteudoEl.style.display = "block";
-        carregarIgreja();
-        carregarAgenda();
-        carregarChat();
-      } else {
-        statusEl.textContent = "Usuário não autenticado. Redirecionando para login...";
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 1500);
-      }
+  async function carregarIgreja() {
+    const snap = await getDocs(collection(db, "igreja"));
+    let html = "";
+    snap.forEach(doc => {
+      const data = doc.data();
+      html += `<p><b>${data.titulo}:</b> ${data.descricao}</p>`;
     });
-  </script>
+    document.getElementById("igreja-data").innerHTML = html || "Nenhuma informação encontrada.";
+  }
+
+  async function carregarAgenda() {
+    const snap = await getDocs(collection(db, "agenda"));
+    let html = "";
+    snap.forEach(doc => {
+      const data = doc.data();
+      html += `<p><b>${data.data}:</b> ${data.evento}</p>`;
+    });
+    document.getElementById("agenda-data").innerHTML = html || "Nenhum evento cadastrado.";
+  }
+
+  async function carregarChat() {
+    const q = query(collection(db, "chat"), orderBy("timestamp", "asc"));
+    const snap = await getDocs(q);
+    let html = "";
+    snap.forEach(doc => {
+      const data = doc.data();
+      html += `<p><b>${data.usuario}:</b> ${data.mensagem}</p>`;
+    });
+    document.getElementById("chat-mensagens").innerHTML = html || "Nenhuma mensagem ainda.";
+    // Scroll para baixo automático:
+    const chatDiv = document.getElementById("chat-mensagens");
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+  }
+
+  async function enviarMensagem() {
+    const input = document.getElementById("mensagem");
+    if (input.value.trim() === "") return;
+    const user = auth.currentUser;
+    await addDoc(collection(db, "chat"), {
+      usuario: user.email,
+      mensagem: input.value.trim(),
+      timestamp: serverTimestamp()
+    });
+    input.value = "";
+    carregarChat();
+  }
+
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
+    });
+  }
+
+  document.getElementById("btnEnviar").addEventListener("click", enviarMensagem);
+  document.getElementById("btnLogout").addEventListener("click", logout);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      statusEl.textContent = `Bem-vindo, ${user.email}`;
+      conteudoEl.style.display = "block";
+      carregarIgreja();
+      carregarAgenda();
+      carregarChat();
+    } else {
+      statusEl.textContent = "Usuário não autenticado. Redirecionando para login...";
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
+    }
+  });
+</script>
 </body>
 </html>
