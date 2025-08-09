@@ -124,6 +124,26 @@
     <p>O batismo acontece logo após a Santa Ceia, em um local adequado, para os irmãos que desejam dar esse passo na fé.</p>
   </section>
 
+  <section id="ministerios">
+    <h2>Ministérios e Responsáveis</h2>
+    <p><strong>Jovens:</strong> Responsáveis: Lucas e Cleiceane</p>
+    <p>Os ministérios de ação social, evangelismo, casais e intercessão ainda acontecem concentrados em um único dia e serão organizados futuramente em dias separados.</p>
+  </section>
+
+  <section id="agenda-eventos">
+    <h2>Agenda de Eventos</h2>
+    <p><strong>Culto Normal:</strong> Todos os domingos às 15h</p>
+    <p><strong>Santa Ceia:</strong> Segundo domingo do mês às 10h da manhã</p>
+    <p><strong>Batismo:</strong> Logo após a Santa Ceia</p>
+    <p><strong>Eventos especiais aos sábados:</strong></p>
+    <ul>
+      <li>09/08 – Encontro de Casais</li>
+      <li>16/08 – Célula</li>
+      <li>23/08 – Encontro de Jovens</li>
+      <li>30/08 – Acampadentro das Meninas</li>
+    </ul>
+  </section>
+
   <section id="chat">
     <h2>Chat</h2>
     <div id="chat-mensagens">Carregando...</div>
@@ -201,7 +221,7 @@
     }
   });
 
-  btnLogout.addEventListener("click", () => {
+  document.getElementById("btnLogout").addEventListener("click", () => {
     signOut(auth).then(() => {
       window.location.href = "login.html";
     });
@@ -222,4 +242,4 @@
 </script>
 
 </body>
-</html>
+      </html>
