@@ -89,14 +89,14 @@
 
   <button id="saveBtn">Salvar Avatar Customizado</button>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDKs compat -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 
   <script>
-    // Config Firebase
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
       authDomain: "login-igreja.firebaseapp.com",
@@ -106,6 +106,7 @@
       appId: "1:65515596204:web:19c691c79b7b9bc70c7209",
       measurementId: "G-P3L7MN23S0"
     };
+
     firebase.initializeApp(firebaseConfig);
 
     const auth = firebase.auth();
@@ -138,22 +139,24 @@
         if (doc.exists && doc.data().avatarUrl) {
           avatarPreview.src = doc.data().avatarUrl;
         } else {
-          avatarPreview.src = '';
+          avatarPreview.src = ''; // Ou uma imagem padrão se quiser
         }
+      }).catch(error => {
+        console.error("Erro ao carregar avatar:", error);
       });
     }
 
-    // Autenticação
+    // Verifica autenticação
     auth.onAuthStateChanged(user => {
       if (!user) {
-        window.location.href = 'login.html'; // redireciona se não logado
+        window.location.href = 'login.html'; // redireciona para login se não logado
       } else {
         currentUser = user;
         loadAvatar(user.uid);
       }
     });
 
-    // Input arquivo
+    // Input arquivo: carrega preview da imagem selecionada
     avatarInput.addEventListener('change', () => {
       const file = avatarInput.files[0];
       if (!file) return;
@@ -166,50 +169,57 @@
       reader.readAsDataURL(file);
     });
 
-    // Atualiza filtros ao mudar ranges
+    // Atualiza filtro ao mudar range
     brightnessRange.addEventListener('input', updateFilter);
     grayscaleRange.addEventListener('input', updateFilter);
     saturateRange.addEventListener('input', updateFilter);
 
-    // Botão salvar avatar
-    saveBtn.addEventListener('click', async () => {
+    // Salvar avatar customizado
+    saveBtn.addEventListener('click', () => {
       if (!originalImageFile) {
         alert("Por favor, escolha uma imagem para salvar.");
         return;
       }
-      // Criar canvas para aplicar filtros e gerar nova imagem
+
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const img = new Image();
-      img.src = avatarPreview.src;
 
-      img.onload = async () => {
+      img.onload = () => {
         canvas.width = img.width;
         canvas.height = img.height;
 
-        // Aplica filtros CSS no canvas (simulação)
+        // Aplica filtros no canvas
         ctx.filter = `brightness(${brightnessRange.value}%) grayscale(${grayscaleRange.value}%) saturate(${saturateRange.value}%)`;
         ctx.drawImage(img, 0, 0);
 
-        canvas.toBlob(async blob => {
-          // Envia para o Firebase Storage
-          const uploadTask = storage.ref(`avatars/${currentUser.uid}.png`).put(blob);
-          uploadTask.on('state_changed', 
-            null,
-            error => alert('Erro ao salvar avatar: ' + error.message),
-            async () => {
-              const url = await uploadTask.snapshot.ref.getDownloadURL();
-              await db.collection('users').doc(currentUser.uid).set({ avatarUrl: url }, { merge: true });
-              alert('Avatar customizado salvo com sucesso!');
-            }
-          );
+        canvas.toBlob(async (blob) => {
+          try {
+            const ref = storage.ref(`avatars/${currentUser.uid}.png`);
+            await ref.put(blob);
+            const url = await ref.getDownloadURL();
+            await db.collection('users').doc(currentUser.uid).set({ avatarUrl: url }, { merge: true });
+            alert('Avatar customizado salvo com sucesso!');
+          } catch (error) {
+            alert('Erro ao salvar avatar: ' + error.message);
+          }
         }, 'image/png');
       };
+
+      img.onerror = () => {
+        alert('Erro ao processar a imagem.');
+      };
+
+      img.src = avatarPreview.src;
     });
 
-    logoutBtn.onclick = () => {
-      auth.signOut();
-    };
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut().then(() => {
+        window.location.href = 'login.html';
+      });
+    });
+
   </script>
 </body>
-</html>
+  </html>
