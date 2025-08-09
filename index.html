@@ -5,19 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>I.E.P.C - Igreja Evangélica Pentecostal Cristã</title>
   <style>
+    /* Fonte e decoração geral para texto */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Georgia', serif;
       background-color: #fdfcf7;
       margin: 0;
       padding: 0;
-      color: #333;
+      color: #4b1e0f;
+      text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5); /* sombra dourada suave */
+      line-height: 1.6;
     }
+
     header {
       background: linear-gradient(45deg, gold, darkred);
       color: white;
       padding: 1.5rem;
       text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
+
+    header h1 {
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, gold, darkred);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      margin-bottom: 0.3rem;
+    }
+
+    header p {
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: #fff9e3;
+    }
+
     nav {
       background-color: darkred;
       display: flex;
@@ -25,61 +49,112 @@
       gap: 2rem;
       padding: 1rem 0;
       flex-wrap: wrap;
+      font-weight: 700;
+      font-family: 'Arial Black', Arial, sans-serif;
+      text-shadow: 1px 1px 3px black;
     }
+
     nav a {
-      color: white;
+      color: gold;
       text-decoration: none;
-      font-weight: bold;
+      transition: all 0.3s ease;
+      letter-spacing: 1.2px;
     }
+
     nav a:hover {
+      color: #fff3cd;
       text-decoration: underline;
+      text-shadow: 0 0 8px gold;
     }
+
     .section {
       padding: 2rem;
       max-width: 900px;
       margin: auto;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4b1e0f;
+      letter-spacing: 0.5px;
     }
+
     .destaque {
       background-color: #fff3cd;
       border-left: 5px solid gold;
       padding: 1rem;
       margin-bottom: 2rem;
       font-style: italic;
+      font-weight: 600;
+      color: #856404;
+      text-shadow: 0 0 5px rgba(255, 193, 7, 0.7);
     }
+
     h2 {
       color: darkred;
       margin-bottom: 1rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 3px rgba(139,0,0,0.7);
     }
-    footer {
-      background-color: darkred;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+
+    ul li {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     }
+
     a.email-link {
       color: darkred;
-      font-weight: bold;
+      font-weight: 700;
       text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(139,0,0,0.4);
+      transition: all 0.3s ease;
     }
+
     a.email-link:hover {
       text-decoration: underline;
+      color: gold;
+      text-shadow: 0 0 8px gold;
     }
+
     .botao-login {
       display: block;
       width: 200px;
       margin: 2rem auto;
       padding: 0.7rem 1.2rem;
       background-color: darkred;
-      color: white;
-      font-weight: bold;
+      color: gold;
+      font-weight: 900;
       text-align: center;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
+      font-family: 'Arial Black', Arial, sans-serif;
+      box-shadow: 0 0 10px gold;
+      transition: all 0.3s ease;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px black;
     }
+
     .botao-login:hover {
       background-color: #a30000;
+      box-shadow: 0 0 20px orange;
+      color: #fff3cd;
+      text-shadow: 2px 2px 4px black;
+    }
+
+    footer {
+      background-color: darkred;
+      color: gold;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-weight: 800;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-shadow:
+        2px 2px 4px rgba(0,0,0,0.7),
+        0 0 8px gold;
     }
   </style>
 </head>
@@ -87,7 +162,7 @@
 
   <header>
     <h1>Igreja Evangélica Pentecostal Cristã (I.E.P.C)</h1>
-    <p>Seja bem-vindo! Desenvolvido por <strong>RAVEL</strong>, 6º ano TD</p>
+    <p>Seja bem-vindo!</p>
   </header>
 
   <nav>
@@ -104,7 +179,7 @@
     </div>
     <p>A I.E.P.C é liderada pelo pastor Airton e está localizada na Rua Curitiba, 2209 – final da rua, em <strong>Fazenda Rio Grande</strong>. Temos cultos aos domingos às 15h e Santa Ceia no segundo domingo de cada mês, às <strong>10h da manhã</strong>. Também realizamos encontros de jovens aos sábados.</p>
     <p>Confira nosso canal no YouTube para acompanhar transmissões e novidades:</p>
-    <p><a href="https://youtube.com/@igrejai.e.p.cfazendariogrande?si=og6EF48hcd3Zk6iv" target="_blank" rel="noopener noreferrer" style="color: darkred; font-weight: bold;">Canal I.E.P.C Fazenda Rio Grande</a></p>
+    <p><a href="https://youtube.com/@igrejai.e.p.cfazendariogrande?si=og6EF48hcd3Zk6iv" target="_blank" rel="noopener noreferrer" class="email-link">Canal I.E.P.C Fazenda Rio Grande</a></p>
   </section>
 
   <section class="section" id="contato">
@@ -152,7 +227,7 @@
   <a href="login.html" class="botao-login">Área Restrita - Login</a>
 
   <footer>
-    &copy; 2025 I.E.P.C - Desenvolvido por RAVEL, 6º ano TD
+    &copy; 2025 I.E.P.C
   </footer>
 
 </body>
