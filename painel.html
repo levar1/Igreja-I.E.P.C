@@ -27,7 +27,6 @@
     padding: 20px;
     max-width: 900px;
     margin: auto;
-    display: none; /* Esconde até autenticar */
   }
   section {
     background: white;
@@ -101,15 +100,28 @@
   <p id="status">Carregando usuário...</p>
 </header>
 
-<main id="conteudo">
+<main id="conteudo" style="display:none;">
   <section id="info-igreja">
-    <h2>Informações da Igreja</h2>
-    <div id="igreja-data">Carregando...</div>
+    <h2>Endereço</h2>
+    <p>Igreja Evangélica Pentecostal Cristã (I.E.P.C)<br>Rua Curitiba, 2209 – final da Rua Curitiba</p>
   </section>
 
-  <section id="agenda">
-    <h2>Agenda</h2>
-    <div id="agenda-data">Carregando...</div>
+  <section id="info-pastor">
+    <h2>Pastor</h2>
+    <p>Pastor Airton</p>
+  </section>
+
+  <section id="info-cultos">
+    <h2>Cultos</h2>
+    <p>Todos os domingos às 15h</p>
+    <p>Santa Ceia: segundo domingo do mês às 10h</p>
+    <p>Encontro de casais: hoje</p>
+  </section>
+
+  <section id="info-santa-ceia">
+    <h2>Santa Ceia e Batismo</h2>
+    <p>A Santa Ceia ocorre no segundo domingo do mês às 10h.</p>
+    <p>O batismo acontece logo após a Santa Ceia, em um local adequado, para os irmãos que desejam dar esse passo na fé.</p>
   </section>
 
   <section id="chat">
@@ -127,7 +139,6 @@
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
   import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-  // Sua configuração Firebase exata do login.html
   const firebaseConfig = {
     apiKey: "AIzaSyB72qfOYuZBzMzQ8IX-Pk1744IPVtCrMSs",
     authDomain: "login-igreja.firebaseapp.com",
@@ -144,70 +155,63 @@
 
   const statusEl = document.getElementById("status");
   const conteudoEl = document.getElementById("conteudo");
+  const chatMensagensEl = document.getElementById("chat-mensagens");
+  const mensagemInput = document.getElementById("mensagem");
+  const btnEnviar = document.getElementById("btnEnviar");
 
-  async function carregarIgreja() {
-    const snap = await getDocs(collection(db, "igreja"));
-    let html = "";
-    snap.forEach(doc => {
+  function renderMensagens(docs) {
+    if (docs.length === 0) {
+      chatMensagensEl.innerHTML = "<p>Nenhuma mensagem ainda.</p>";
+      return;
+    }
+    chatMensagensEl.innerHTML = "";
+    docs.forEach(doc => {
       const data = doc.data();
-      html += `<p><b>${data.titulo}:</b> ${data.descricao}</p>`;
+      const p = document.createElement("p");
+      p.innerHTML = `<b>${data.usuario}:</b> ${data.mensagem}`;
+      chatMensagensEl.appendChild(p);
     });
-    document.getElementById("igreja-data").innerHTML = html || "Nenhuma informação encontrada.";
+    chatMensagensEl.scrollTop = chatMensagensEl.scrollHeight;
   }
 
-  async function carregarAgenda() {
-    const snap = await getDocs(collection(db, "agenda"));
-    let html = "";
-    snap.forEach(doc => {
-      const data = doc.data();
-      html += `<p><b>${data.data}:</b> ${data.evento}</p>`;
-    });
-    document.getElementById("agenda-data").innerHTML = html || "Nenhum evento cadastrado.";
-  }
-
-  async function carregarChat() {
+  async function carregarMensagens() {
     const q = query(collection(db, "chat"), orderBy("timestamp", "asc"));
     const snap = await getDocs(q);
-    let html = "";
-    snap.forEach(doc => {
-      const data = doc.data();
-      html += `<p><b>${data.usuario}:</b> ${data.mensagem}</p>`;
-    });
-    document.getElementById("chat-mensagens").innerHTML = html || "Nenhuma mensagem ainda.";
-    // Scroll para baixo automático:
-    const chatDiv = document.getElementById("chat-mensagens");
-    chatDiv.scrollTop = chatDiv.scrollHeight;
+    renderMensagens(snap.docs);
   }
 
   async function enviarMensagem() {
-    const input = document.getElementById("mensagem");
-    if (input.value.trim() === "") return;
+    const texto = mensagemInput.value.trim();
+    if (texto === "") return;
     const user = auth.currentUser;
     await addDoc(collection(db, "chat"), {
       usuario: user.email,
-      mensagem: input.value.trim(),
+      mensagem: texto,
       timestamp: serverTimestamp()
     });
-    input.value = "";
-    carregarChat();
+    mensagemInput.value = "";
+    carregarMensagens();
   }
 
-  function logout() {
+  btnEnviar.addEventListener("click", enviarMensagem);
+
+  mensagemInput.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+      enviarMensagem();
+    }
+  });
+
+  btnLogout.addEventListener("click", () => {
     signOut(auth).then(() => {
       window.location.href = "login.html";
     });
-  }
-
-  document.getElementById("btnEnviar").addEventListener("click", enviarMensagem);
-  document.getElementById("btnLogout").addEventListener("click", logout);
+  });
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
       statusEl.textContent = `Bem-vindo, ${user.email}`;
       conteudoEl.style.display = "block";
-      carregarIgreja();
-      carregarAgenda();
-      carregarChat();
+      carregarMensagens();
     } else {
       statusEl.textContent = "Usuário não autenticado. Redirecionando para login...";
       setTimeout(() => {
@@ -216,5 +220,6 @@
     }
   });
 </script>
+
 </body>
 </html>
