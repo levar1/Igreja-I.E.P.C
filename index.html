@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       color: #4b1e0f;
-      text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5); /* sombra dourada suave */
+      text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5);
       line-height: 1.6;
     }
 
@@ -22,6 +22,7 @@
       padding: 1.5rem;
       text-align: center;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      position: relative;
     }
 
     header h1 {
@@ -156,6 +157,31 @@
         2px 2px 4px rgba(0,0,0,0.7),
         0 0 8px gold;
     }
+
+    /* Botão fixo no canto superior direito para abrir midia.html */
+    #btnMidia {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #e91e63;
+      color: white;
+      padding: 12px 20px;
+      font-weight: 900;
+      font-family: 'Arial Black', Arial, sans-serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(233,30,99,0.7);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 9999;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    #btnMidia:hover {
+      background-color: #ad1457;
+      box-shadow: 0 6px 15px rgba(173,20,87,0.9);
+    }
   </style>
 </head>
 <body>
@@ -225,6 +251,9 @@
   </section>
 
   <a href="login.html" class="botao-login">Área Restrita - Login</a>
+
+  <!-- Botão fixo para abrir midia.html -->
+  <button id="btnMidia" onclick="window.location.href='midia.html'">Mídia 📸🎥</button>
 
   <footer>
     &copy; 2025 I.E.P.C
