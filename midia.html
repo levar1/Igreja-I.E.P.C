@@ -22,15 +22,27 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
       padding: 15px;
     }
-    .gallery img, .gallery video {
-      max-width: 300px;
+    .gallery img {
+      max-width: 250px;
       width: 100%;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       background-color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .gallery video {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      background-color: black;
     }
   </style>
 </head>
@@ -44,21 +56,23 @@
   <div class="gallery" id="videos"></div>
 
   <script>
-    // Fotos de 1 a 30
     const fotosContainer = document.getElementById("fotos");
     for (let i = 1; i <= 30; i++) {
-      let img = document.createElement("img");
-      img.src = `foto ${i}.jpg`; // Nome do arquivo exato
+      const nomeArquivo = `foto ${i}.jpg`;
+      const img = document.createElement("img");
+      img.src = encodeURI(nomeArquivo);
       img.alt = `Foto ${i}`;
       fotosContainer.appendChild(img);
     }
 
-    // Vídeos de 1 a 5
     const videosContainer = document.getElementById("videos");
     for (let i = 1; i <= 5; i++) {
-      let vid = document.createElement("video");
-      vid.src = `video ${i}.mp4`; // Nome do arquivo exato
+      const nomeArquivo = `video ${i}.mp4`;
+      const vid = document.createElement("video");
+      vid.src = encodeURI(nomeArquivo);
       vid.controls = true;
+      vid.preload = "metadata";
+      vid.title = `Vídeo ${i}`;
       videosContainer.appendChild(vid);
     }
   </script>
