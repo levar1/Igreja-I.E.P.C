@@ -1,130 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mídia - I.E.P.C</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-  }
-  h1, h2 {
-    color: #333;
-    text-align: center;
-  }
-  /* Player principal grande */
-  #player {
-    width: 100%;
-    max-height: 500px;
-    background: #000;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-    margin-bottom: 20px;
-  }
-  #player video {
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-  }
-  /* Miniaturas vídeo estilo YouTube */
-  #miniaturasVideos {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
-  #miniaturasVideos video {
-    width: 160px;
-    height: 90px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-    object-fit: cover;
-  }
-  #miniaturasVideos video:hover {
-    transform: scale(1.1);
-  }
-  /* Galeria fotos */
-  #galeriaFotos {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
-    gap: 15px;
-  }
-  #galeriaFotos img {
-    width: 100%;
-    max-height: 140px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  #galeriaFotos img:hover {
-    transform: scale(1.05);
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mídia - I.E.P.C</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      background-color: #800000;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+    }
+    .gallery img, .gallery video {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      background-color: white;
+    }
+  </style>
 </head>
 <body>
+  <h1>Galeria de Fotos e Vídeos - I.E.P.C</h1>
+  
+  <h2>Fotos</h2>
+  <div class="gallery" id="fotos"></div>
+  
+  <h2>Vídeos</h2>
+  <div class="gallery" id="videos"></div>
 
-<h1>🎥 Vídeos em Destaque</h1>
+  <script>
+    // Fotos de 1 a 30
+    const fotosContainer = document.getElementById("fotos");
+    for (let i = 1; i <= 30; i++) {
+      let img = document.createElement("img");
+      img.src = `foto ${i}.jpg`; // Nome do arquivo exato
+      img.alt = `Foto ${i}`;
+      fotosContainer.appendChild(img);
+    }
 
-<div id="player">
-  <video id="videoPlayer" controls>
-    <source src="VID_20250809_094913.mp4" type="video/mp4">
-    Seu navegador não suporta vídeo.
-  </video>
-</div>
-
-<div id="miniaturasVideos">
-  <video src="VID_20250809_094913.mp4" muted></video>
-  <video src="VID_20250809_212424.mp4" muted></video>
-  <video src="VID_20250810_100724.mp4" muted></video>
-  <video src="VID_20250810_101223.mp4" muted></video>
-  <video src="VID_20250810_105953.mp4" muted></video>
-</div>
-
-<h2>📸 Galeria de Fotos</h2>
-<div id="galeriaFotos">
-  <img src="IMG_20250810_100049.jpg" alt="Foto 1" />
-  <img src="IMG_20250810_100051.jpg" alt="Foto 2" />
-  <img src="IMG_20250810_100053.jpg" alt="Foto 3" />
-  <img src="IMG_20250810_100055.jpg" alt="Foto 4" />
-  <img src="IMG_20250810_100057.jpg" alt="Foto 5" />
-  <img src="IMG_20250810_100059.jpg" alt="Foto 6" />
-  <img src="IMG_20250810_100101.jpg" alt="Foto 7" />
-  <img src="IMG_20250810_100103.jpg" alt="Foto 8" />
-  <img src="IMG_20250810_100105.jpg" alt="Foto 9" />
-  <img src="IMG_20250810_100107.jpg" alt="Foto 10" />
-  <img src="IMG_20250810_100109.jpg" alt="Foto 11" />
-  <img src="IMG_20250810_100111.jpg" alt="Foto 12" />
-  <img src="IMG_20250810_100113.jpg" alt="Foto 13" />
-  <img src="IMG_20250810_100115.jpg" alt="Foto 14" />
-  <img src="IMG_20250810_100117.jpg" alt="Foto 15" />
-  <img src="IMG_20250810_100119.jpg" alt="Foto 16" />
-  <img src="IMG_20250810_100121.jpg" alt="Foto 17" />
-  <img src="IMG_20250810_100123.jpg" alt="Foto 18" />
-  <img src="IMG_20250810_100125.jpg" alt="Foto 19" />
-  <img src="IMG_20250810_110028.jpg" alt="Foto 20" />
-</div>
-
-<script>
-  const player = document.getElementById('videoPlayer');
-  const miniaturas = document.querySelectorAll('#miniaturasVideos video');
-
-  miniaturas.forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      player.src = thumb.src;
-      player.play();
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    });
-  });
-</script>
-
+    // Vídeos de 1 a 5
+    const videosContainer = document.getElementById("videos");
+    for (let i = 1; i <= 5; i++) {
+      let vid = document.createElement("video");
+      vid.src = `video ${i}.mp4`; // Nome do arquivo exato
+      vid.controls = true;
+      videosContainer.appendChild(vid);
+    }
+  </script>
 </body>
 </html>
